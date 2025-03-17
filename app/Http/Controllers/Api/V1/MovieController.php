@@ -15,7 +15,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return $this->success(Movie::paginate(15));
+        return $this->success(Movie::paginate(5));
     }
 
     /**
@@ -33,7 +33,7 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        return $this->success($movie);
+        return $this->success($movie->load('screenings'));
     }
 
     /**
