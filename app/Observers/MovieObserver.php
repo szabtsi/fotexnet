@@ -33,6 +33,9 @@ class MovieObserver
     {
         // Delete the movie's cover from storage
         Storage::delete($movie->cover);
+
+        // Delete the movie's screenings
+        $movie->screenings()->delete();
     }
 
     /**

@@ -17,6 +17,7 @@ class MovieTest extends TestCase
         $response = $this->get(route('movies.index'));
 
         $response->assertOk();
+        $this->assertNotEmpty($response->json('data'));
     }
 
     public function test_store_movie_successfully(): void
@@ -82,7 +83,7 @@ class MovieTest extends TestCase
         ]);
     }
 
-    /* public function test_update_movie_successfully(): void
+    public function test_update_movie_successfully(): void
     {
         $user = User::factory()->create([
             'is_admin' => true,
@@ -130,14 +131,14 @@ class MovieTest extends TestCase
             'age_limit' => $payload['age_limit'],
             'language' => $payload['language'],
         ]);
-    } */
+    }
 
     public function test_delete_movie_successfully(): void
     {
         $user = User::factory()->create([
             'is_admin' => true,
         ]);
-        $movie = Movie::factory()->create();
+        $movie = Movie::factory()->hasScreenings(3)->create();
 
         $response = $this->actingAs($user)->delete(route('movies.destroy', $movie));
 
@@ -145,18 +146,24 @@ class MovieTest extends TestCase
         $this->assertDatabaseMissing('movies', [
             'id' => $movie->id,
         ]);
+        $this->assertDatabaseMissing('screenings', [
+            'movie_id' => $movie->id,
+        ]);
     }
 
     public function test_delete_movie_unauthorized(): void
     {
         $user = User::factory()->create();
-        $movie = Movie::factory()->create();
+        $movie = Movie::factory()->hasScreenings(3)->create();
 
         $response = $this->actingAs($user)->delete(route('movies.destroy', $movie));
 
         $response->assertForbidden();
         $this->assertDatabaseHas('movies', [
             'id' => $movie->id,
+        ]);
+        $this->assertDatabaseHas('screenings', [
+            'movie_id' => $movie->id,
         ]);
     }
 }

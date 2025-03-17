@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Movie::factory(10)->create();
+        Movie::factory(10)->hasScreenings(5)->create();
     }
 }
