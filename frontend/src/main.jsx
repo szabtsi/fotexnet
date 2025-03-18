@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import AppLayout from "./components/Layout.jsx";
 import Movie from "./pages/Movie.jsx";
 import "./index.css";
+import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
