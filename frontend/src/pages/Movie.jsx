@@ -36,36 +36,52 @@ const Movie = () => {
 
     return (
         <Spin spinning={loading}>
-            <small>
-                <Link to="/">Back to movies</Link>
-            </small>
-            <h1>{movie?.title}</h1>
-            <p>{movie?.description}</p>
-            <p>Language: {movie?.language}</p>
-            <p>Age limit: {movie?.age_limit}</p>
-            <img
-                src={movie?.cover}
-                alt={movie?.title}
-                style={{ width: "100%" }}
-            />
-            <h3>Screenings:</h3>
-            <ul>
-                {movie?.screenings?.map((screening) => (
-                    <li key={screening.id} style={{ marginBottom: 10 }}>
-                        <ul style={{ listStyleType: "none" }}>
-                            <li>
-                                Starts At:{" "}
-                                {dayjs(screening.starts_at).format(
-                                    "YYYY.MM.DD. HH:mm"
-                                )}
-                            </li>
-                            <li>
-                                Available Seats: {screening.available_seats}
-                            </li>
-                        </ul>
-                    </li>
-                ))}
-            </ul>
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <small>
+                            <Link to="/">Back to movies</Link>
+                        </small>
+                        <h1>{movie?.title}</h1>
+                        <p>{movie?.description}</p>
+                        <p>Language: {movie?.language}</p>
+                        <p>Age limit: {movie?.age_limit}</p>
+                    </div>
+                    <div className="col">
+                        {/* <img
+                    src={movie?.cover}
+                    alt={movie?.title}
+                    style={{ width: "100%" }}
+                /> */}
+                        {/* Dummy grey box as image placeholder */}
+                        <div
+                            style={{
+                                width: "100%",
+                                height: 300,
+                                backgroundColor: "grey",
+                            }}
+                        ></div>
+                    </div>
+                </div>
+                <h3>Screenings:</h3>
+                <ul>
+                    {movie?.screenings?.map((screening) => (
+                        <li key={screening.id} style={{ marginBottom: 10 }}>
+                            <ul style={{ listStyleType: "none" }}>
+                                <li>
+                                    Starts At:{" "}
+                                    {dayjs(screening.starts_at).format(
+                                        "YYYY.MM.DD. HH:mm"
+                                    )}
+                                </li>
+                                <li>
+                                    Available Seats: {screening.available_seats}
+                                </li>
+                            </ul>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </Spin>
     );
 };

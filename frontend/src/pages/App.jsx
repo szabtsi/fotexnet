@@ -52,29 +52,52 @@ function App() {
 
     return (
         <Spin spinning={loading}>
-            <h3>Movies</h3>
+            <div className="container">
+                <div className="row my-4">
+                    <h3 className="text-center">Movies</h3>
 
-            <Row gutter={[16, 16]}>
-                {movies?.map((movie) => (
-                    <Col span={6} key={movie.id}>
-                        <Link to={`/movies/${movie.id}`}>
-                            <Card
-                                key={movie.id}
-                                hoverable
-                                style={{ width: 240, minHeight: 300 }}
-                                cover={
-                                    <img alt={movie.title} src={movie.cover} />
-                                }
+                    <p className="text-center">
+                        Check out our collection of movies. Click on a movie to
+                        see more!
+                    </p>
+                </div>
+                <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 justify-content-center">
+                    {movies?.map((movie) => (
+                        <div className="col" key={movie.id}>
+                            <Link
+                                to={`/movies/${movie.id}`}
+                                style={{ textDecoration: "none" }}
                             >
-                                <Meta
-                                    title={movie.title}
-                                    description={movie.description}
-                                />
-                            </Card>
-                        </Link>
-                    </Col>
-                ))}
-            </Row>
+                                <Card
+                                    key={movie.id}
+                                    hoverable
+                                    style={{ width: 240, height: "100%" }}
+                                    /* cover={
+                                        <img
+                                            alt={movie.title}
+                                            src={movie.cover}
+                                        />
+                                    } */
+                                    cover={
+                                        <div
+                                            style={{
+                                                width: "100%",
+                                                height: 200,
+                                                backgroundColor: "grey",
+                                            }}
+                                        ></div>
+                                    }
+                                >
+                                    <Meta
+                                        title={movie.title}
+                                        description={movie.description}
+                                    />
+                                </Card>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
             <div style={{ display: "flex", justifyContent: "center" }}>
                 <Pagination
